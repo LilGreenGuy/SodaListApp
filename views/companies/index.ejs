@@ -1,0 +1,15 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="container mt-3 mb-3">
+        <h1 class="text-center">All Companies and their Brands</h1>
+    </div>
+        <%for (let company of companies) {%>
+            <a href="/companies/<%=company._id %>" class="mx-2 mb-2">
+                <div class="card" style="height: 10rem">
+                    <img src="<%=company.img.url %>" alt="Company Logo" class="card-img">
+                </div>
+            </a>
+            <% } %>
+
+            <a href="/companies/new"><button class="btn btn-primary mx-auto" id="newBtn">Add a new Company</button></a>
+            

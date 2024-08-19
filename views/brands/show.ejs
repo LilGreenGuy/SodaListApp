@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="card">
+  <img src="<%=brand.img.url %>" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><%=brand.name %></h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="btn-group" role="group">
+    <a href="/brands/<%=brand._id%>/edit" class="btn btn-secondary">Edit</a>
+    <a href="/brands" class="btn btn-primary">Go Back</a>
+  </div>
+    <form class="d-inline" action="/brands/<%= brand._id%>?_method=DELETE" method="POST">
+      <button class="btn btn-sm btn-danger ms-5">Remove Brand</button>
+  </form>
+    </div>
+  </div>
+
+  <a href="/beverages/new"><button class="btn btn-primary" id="newBtn">Add a new Beverage</button></a>

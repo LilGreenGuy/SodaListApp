@@ -1,0 +1,20 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="container mt-3 mb-3">
+        <h1 class="text-center">All Brands</h1>
+    </div>
+    <div class="container">
+    <div class="row">
+        <%for (let brand of brands) {%>
+            <div class="col-6">
+                <a href="/brands/<%=brand._id %>" class="mx-1">
+                    <div class="card" style="height: 10rem">
+                        <img style="object-fit: contain;" src="<%=brand.img.url %>" alt="Brand Logo"
+                            class="img-thumbnail">
+                    </div>
+                </a>
+            </div>
+                <% } %>
+    </div>
+    </div>
+    <a href="/brands/new"><button class="btn btn-primary" id="newBtn">Add a new Brand</button></a>

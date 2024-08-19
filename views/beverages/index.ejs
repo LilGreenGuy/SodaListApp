@@ -1,0 +1,10 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-3 mb-3">
+    <h1 class="text-center">All Beverages</h1>
+</div>
+<% for(let beverage of beverages) { %>
+    <a href="/beverages/<%=beverage._id %>"><%=beverage.brand.name %> <%=beverage.flavor %> <%=beverage.variety%> <%=beverage.size %></a>
+    <% } %>
+
+<a href="/beverages/new"><button class="btn btn-primary" id="newBtn">Add a new Beverage</button></a>

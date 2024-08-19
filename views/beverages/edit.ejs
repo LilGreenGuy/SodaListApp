@@ -1,0 +1,46 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">Edit Beverage</h1>
+    <div class="col-6 offset-3">
+            <form action="/beverages/<%=beverage._id %>?_method=PUT" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="brand">Parent Brand</label>
+                <select class="form-control" required type="text" id="brand" name="beverage[brand]" required>
+                 <option value="">Select a Brand:</option>
+                 <% for(let brand of brands) {%>
+                    <option value="<%=brand._id %>"><%=brand.name %></option>
+                    <% } %>
+                </select>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please submit a brand</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="flavor">Product Flavor</label>
+                <input class="form-control" required type="text" id="flavor" name="beverage[flavor]" required value="<%=beverage.flavor%>">
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please submit a flavor</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="variety">Product Variety</label>
+                <input class="form-control" required type="text" id="variety" name="beverage[variety]" required value="<%=beverage.variety%>">
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please submit a variety</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="size">Product Size</label>
+                <input class="form-control" required type="text" id="size" name="beverage[size]" required value="<%=beverage.size%>">
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please submit a size</div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="image" name="image">
+                <label class="input-group-text" for="image">Upload Product Image</label>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Save Changes</button>
+            </div>
+            <a href="/beverages">All Beverages</a>
+        </form>
+    </div>
+</div>

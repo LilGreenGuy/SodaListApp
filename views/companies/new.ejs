@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">New Company</h1>
+    <div class="col-10 offset-1">
+        <form action="/companies" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="name">Name</label>
+                <input class="form-control" required type="text" id="name" name="company[name]" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please submit a name</div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="image" name="image">
+                <label class="input-group-text" for="image">Upload Logo</label>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add Company</button>
+            </div>
+            <a class="returnLink" href="/companies">All Companies</a>
+        </form>
+    </div>
+</div>

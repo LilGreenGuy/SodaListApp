@@ -1,0 +1,29 @@
+<% layout('layouts/boilerplate') %>
+
+  <div class="card">
+    <img src="<%=company.img.url %>" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><%=company.name %></h5>
+  
+      <div class="btn-group" role="group">
+      <a href="/companies/<%=company._id%>/edit" class="btn btn-secondary">Edit</a>
+      <a href="/companies" class="btn btn-primary">Go Back</a>
+    </div>
+      <form class="d-inline" action="/companies/<%= company._id%>?_method=DELETE" method="POST">
+        <button class="btn btn-sm btn-danger ms-5">Remove Company</button>
+    </form>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Company's Drink Brands:</h2>
+    <%for (let brand of company.brands) {%>
+      <a href="/brands/<%=brand._id %>" class="mx-2 mb-2">
+          <div class="card" style="height: 10rem">
+              <img src="<%=brand.img.url %>" alt="Brand Logo" class="card-img img-thumbnail">
+              <div class="card-img-overlay">
+              </div>
+          </div>
+      </a>
+      <% } %>
+    </div>
+  </div>
