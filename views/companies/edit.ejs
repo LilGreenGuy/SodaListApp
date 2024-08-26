@@ -2,12 +2,11 @@
 
 <div class="row">
     <h1 class="text-center">Edit Company</h1>
-    <div class="col-6 offset-3">
-        <form action="/companies/<%=company._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+    <div class="col-10 offset-1">
+        <form action="/companies/<%=company._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="name">Name</label>
-                <input class="form-control" required type="text" id="name" name="company[name]" required
-                 value="<%=company.name %>">
+                <input class="form-control" type="text" id="name" name="company[name]" value="<%=company.name %>" required >
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">Please submit a name</div>
             </div>

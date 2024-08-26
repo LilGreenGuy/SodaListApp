@@ -15,7 +15,7 @@ router.get('/new', catchAsync(beverages.renderNewForm));
 
 router.route('/:id')
     .get(catchAsync(beverages.showBeverage))
-    .put(upload.single('image'), isLoggedIn, catchAsync(beverages.updateBeverage))
+    .put(isLoggedIn, upload.single('image'), validateBeverage, catchAsync(beverages.updateBeverage))
     .delete(isLoggedIn, catchAsync(beverages.deleteBeverage));
 
 router.get('/:id/edit', isLoggedIn, catchAsync(beverages.renderEditForm))

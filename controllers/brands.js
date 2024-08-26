@@ -1,5 +1,6 @@
 const Company = require('../models/company');
 const Brand = require('../models/brand');
+const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const brands = await Brand.find({});
@@ -43,13 +44,19 @@ module.exports.renderEditForm = async (req, res) => {
 }
 
 module.exports.updateBrand = async (req, res) => {
-    const brand = await Brand.findById(req.params.id);
+    const { id } = req.params
+    const brand = await Brand.findByIdAndUpdate(id, { ...req.body.brand });
     const selectedCompany = await Company.findById(req.body.brand.company);
     await Company.findByIdAndUpdate(brand.company._id, { $pull: { brands: req.params.id } });
     if (!selectedCompany.brands.includes(brand._id)) {
         selectedCompany.brands.push(brand);
     }
     brand.company = selectedCompany;
+    if(req.file) {
+        await cloudinary.uploader.destroy(brand.img.filename);
+        brand.img = { url: req.file.path, filename: req.file.filename };
+    }
+    await brand.save();
     if (!brand) {
         req.flash('error', 'Brand not found!');
         return res.redirect('/brands')

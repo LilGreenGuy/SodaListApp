@@ -1,5 +1,6 @@
 const Brand = require('../models/brand');
 const Beverage = require('../models/beverage');
+const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const beverages = await Beverage.find({}).populate('brand');
@@ -46,17 +47,21 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateBeverage = async (req, res) => {
     const { id } = req.params;
-    const beverage = await Beverage.findById(id);
+    const beverage = await Beverage.findByIdAndUpdate(id, { ...req.body.beverage });
     const brand = await Brand.findById(req.body.beverage.brand);
+    beverage.brand = brand;
     if (!brand.products.includes(beverage._id)) {
         brand.products.push(beverage);
+        await brand.save();
     }
-    beverage.brand = brand;
+    if(req.file) {
+        await cloudinary.uploader.destroy(beverage.img.filename);
+        beverage.img = { url: req.file.path, filename: req.file.filename };
+    }
     if (!beverage) {
         req.flash('error', 'Beverage not found!');
         return res.redirect('/beverages')
     }
-    await brand.save();
     await beverage.save();
     req.flash('success', `Successfully updated ${brand.name} ${beverage.flavor} ${beverage.variety} ${beverage.size}`);
     res.redirect(`/brands/${brand._id}`);

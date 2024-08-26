@@ -2,6 +2,16 @@ const mongoose = require('mongoose');
 const Beverage = require('./beverage');
 const Schema = mongoose.Schema;
 
+const ImageSchema = new Schema({
+    url: String,
+    filename: String
+});
+
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload', '/upload/w_200');
+})
+
+
 const brandSchema = new Schema({
     company:
     {
@@ -18,10 +28,8 @@ const brandSchema = new Schema({
             ref: 'Beverage'
         }
     ],
-    img: {
-        url: String,
-        filename: String
-    }
+    img: [ImageSchema],
+    defaultProductImage: [ImageSchema]
 })
 
 brandSchema.post('findOneAndDelete', async function (brand) {

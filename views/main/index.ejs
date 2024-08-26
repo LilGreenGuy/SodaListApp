@@ -1,4 +1,11 @@
 <% layout('layouts/boilerplate') %>
+
+<script>
+    const companies = '<%- JSON.stringify(companies) %>';
+    const brands = '<%- JSON.stringify(brands) %>';
+    const beverages = '<%- JSON.stringify(beverages) %>';
+</script>
+
     <form id="inputContainer" class="container bg-secondary-subtle pt-3 pb-3 position-sticky top-0 validated-form" action="#" novalidate>
         <div class="row mb-2 g-2">
             <div class="form-group col-6">

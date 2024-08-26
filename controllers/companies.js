@@ -1,4 +1,5 @@
 const Company = require('../models/company');
+const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const companies = await Company.find({});
@@ -39,6 +40,11 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateCompany = async (req, res) => {
     const { id } = req.params
     const company = await Company.findByIdAndUpdate(id, { ...req.body.company });
+    if(req.file) {
+        await cloudinary.uploader.destroy(company.img.filename);
+        company.img = { url: req.file.path, filename: req.file.filename };
+    }
+    await company.save();
     if (!company) {
         req.flash('error', 'Company not found!');
         return res.redirect('/companies')
